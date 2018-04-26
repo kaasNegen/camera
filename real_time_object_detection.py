@@ -1,7 +1,5 @@
-# USAGE
-# python real_time_object_detection.py --prototxt MobileNetSSD_deploy.prototxt.txt --model MobileNetSSD_deploy.caffemodel
+# How to use: python real_time_object_detection.py --prototxt MobileNetSSD_deploy.prototxt.txt --model MobileNetSSD_deploy.caffemodel
 
-# import the necessary packages
 from imutils.video import VideoStream
 from imutils.video import FPS
 import numpy as np
@@ -9,6 +7,7 @@ import argparse
 import imutils
 import time
 import cv2
+import playsound
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -16,16 +15,16 @@ ap.add_argument("-p", "--prototxt", required=True,
 	help="path to Caffe 'deploy' prototxt file")
 ap.add_argument("-m", "--model", required=True,
 	help="path to Caffe pre-trained model")
-ap.add_argument("-c", "--confidence", type=float, default=0.2,
+ap.add_argument("-c", "--confidence", type=float, default=0.4,
 	help="minimum probability to filter weak detections")
 args = vars(ap.parse_args())
 
 # initialize the list of class labels MobileNet SSD was trained to
 # detect, then generate a set of bounding box colors for each class
-CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-	"sofa", "train", "tvmonitor"]
+CLASSES = ["achtergrond", "vliegtuig", "fiets", "vogel", "boot",
+	"fles", "bus", "auto", "kat", "stoel", "koe", "eettafel",
+	"hond", "paard", "motorfiets", "persoon", "plant", "schaap",
+	"bankstel", "trein", "tvmonitor"]
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 
 # load our serialized model from disk
@@ -80,6 +79,8 @@ while True:
 			y = startY - 15 if startY - 15 > 15 else startY + 15
 			cv2.putText(frame, label, (startX, y),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+			print("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3")
+			playsound.playsound("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3", True)
 
 	# show the output frame
 	cv2.imshow("Frame", frame)
@@ -100,3 +101,4 @@ print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 # do a bit of cleanup
 cv2.destroyAllWindows()
 vs.stop()
+

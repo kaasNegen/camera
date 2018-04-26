@@ -14,3 +14,10 @@ following objects:
 	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
 	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
 	"sofa", "train", "tvmonitor"]
+	
+# How to on my pc:
+
+- I installed pip3 version 10
+- Run pip by using `pip3 install xxx`
+- I installed pip3 install opencv-python (if this and simpler solutions don't work, you would have to install OpenCV via the install script)
+

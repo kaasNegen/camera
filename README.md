@@ -10,10 +10,10 @@ To run this project a couple of dependencies are needed:
 
 The model provided in this project can detect the 
 following objects: 
-["background", "aeroplane", "bicycle", "bird", "boat",
-	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-	"sofa", "train", "tvmonitor"]
+["achtergrond", "vliegtuig", "fiets", "vogel", "boot",
+	"fles", "bus", "auto", "kat", "stoel", "koe", "eettafel",
+	"hond", "paard", "motorfiets", "persoon", "plant", "schaap",
+	"bankstel", "trein", "tvmonitor"]
 	
 # How to on my pc:
 

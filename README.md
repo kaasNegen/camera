@@ -21,3 +21,6 @@ following objects:
 - Run pip by using `pip3 install xxx`
 - I installed pip3 install opencv-python (if this and simpler solutions don't work, you would have to install OpenCV via the install script)
 
+Run real_time_object_detection to see which params are required.
+real_time_object_detection_single is run as a thread inside the main code.
+

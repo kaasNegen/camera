@@ -1,5 +1,15 @@
 # object-detection
 
+## How to run:
+`python main.py`
+
+
+## TODO:
+- Give the current location of the 
+- Add new objects to Model
+
+## Extra
+
 Demo of object detection with Python.
 
 To run this project a couple of dependencies are needed:

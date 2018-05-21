@@ -13,3 +13,9 @@ for obj in objects:
   tts = gTTS(text=obj, lang='nl')
   tts.save(obj + ".mp3")
 
+# distances
+distances = []
+for distance in distances:
+  tts = gTTS(text='op een afstand van vijf meter', lang='nl')
+  tts.save('afstand.mp3')
+

@@ -67,14 +67,8 @@ def detectObject():
 		  cv2.rectangle(frame, (startX, startY), (endX, endY),
 			  COLORS[idx], 2)
 		  y = startY - 15 if startY - 15 > 15 else startY + 15
-		  cv2.putText(frame, label, (startX, y),
-			  cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
 		  print("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3")
 		  playsound.playsound("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3", True)
-
-  # show the output frame
-  cv2.imshow("Frame", frame)
-  key = cv2.waitKey(1) & 0xFF
 
   # update the FPS counter
   fps.update()
@@ -84,7 +78,6 @@ def detectObject():
   print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
   print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 
-  # do a bit of cleanup
-  cv2.destroyAllWindows()
+  # clean up video streaming stuffy
   vs.stop()
 

@@ -3,40 +3,39 @@ from imutils.video import VideoStream
 from imutils.video import FPS
 import numpy as np
 import imutils
+import time
 
 print("[INFO] starting...")
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 fps = FPS().start()
 
-# grab the frame from the threaded video stream and resize it
-# to have a maximum width of 400 pixels
-frame = vs.read()
-frame = imutils.resize(frame, width=400)
+while(True):
+  # grab the frame from the threaded video stream and resize it
+  # to have a maximum width of 400 pixels
+  frame = vs.read()
+  frame = imutils.resize(frame, width=400) # Width is 400, length is 300
+  
+  gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+  imageShape = gray.shape # (rows, columns, channels)
+  print("ImageShape")
+  print(imageShape)
 
-# grab the frame dimensions
-(h, w) = frame.shape[:2]
+  # A gray pixel has an array with a length of 1
+  px = gray[100,100]
 
-# loop over the detections
-for i in np.arange(0, detections.shape[2]):
-  # extract the confidence (i.e., probability) associated with
-  # the prediction
-  confidence = detections[0, 0, i, 2]
+  brightnessSum = 0
+  averageBrightness = 0
+  for l in range(0, imageShape[0]):
+    for w in range(0, imageShape[1]):
+      brightnessSum += gray[l, w]
 
-  # filter out weak detections by ensuring the `confidence` is
-  # greater than the minimum confidence
-  if confidence > defaultConfidence:
-	  # extract the index of the class label from the
-	  # `detections`, then compute the (x, y)-coordinates of
-	  # the bounding box for the object
-	  idx = int(detections[0, 0, i, 1])
-	  box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-	  (startX, startY, endX, endY) = box.astype("int")
+  averageBrightness = brightnessSum / 120000
+  print(averageBrightness) # Trigger should happen if the brightness is around ~ 100
 
-	  # draw the prediction on the frame
-	  label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
-	  cv2.rectangle(frame, (startX, startY), (endX, endY), COLORS[idx], 2)
-	  y = startY - 15 if startY - 15 > 15 else startY + 15
+  cv2.imshow('frame', gray)
+  if cv2.waitKey(1) & 0xFF == ord('q'):
+    break
 
 # update the FPS counter
 fps.update()
@@ -47,5 +46,6 @@ print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 
 # clean up video streaming stuffy
+cv2.destroyAllWindows()
 vs.stop()
 

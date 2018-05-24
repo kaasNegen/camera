@@ -70,6 +70,13 @@ while True:
 			idx = int(detections[0, 0, i, 1])
 			box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
 			(startX, startY, endX, endY) = box.astype("int")
+			
+			# Getting the coordinates
+			print("box coordinates") # startX = width horizontal, startY = height vertical endX, endY are the lengths
+			print(box.astype("int"))
+	    
+			print(leftDistanceFromDisplay)
+			print(rightDistanceFromDisplay)
 
 			# draw the prediction on the frame
 			label = "{}: {:.2f}%".format(CLASSES[idx],

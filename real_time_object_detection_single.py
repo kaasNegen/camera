@@ -6,7 +6,7 @@ import numpy as np
 import imutils
 import time
 import cv2
-import playsound
+import subprocess
 
 def detectObject():
   # initialize the list of class labels MobileNet SSD was trained to
@@ -68,7 +68,7 @@ def detectObject():
 			  COLORS[idx], 2)
 		  y = startY - 15 if startY - 15 > 15 else startY + 15
 		  print("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3")
-		  playsound.playsound("python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3", True)
+		  subprocess.Popen(["mpg123", "-q", "python-sound-lib/audioFiles/" + CLASSES[idx] + ".mp3"]).wait()
 
   # update the FPS counter
   fps.update()

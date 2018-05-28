@@ -6,7 +6,6 @@ import numpy as np
 import time
 from imutils.video import VideoStream
 from pydub import AudioSegment
-from pydub.playback import play
 from threading import Thread
 
 '''
@@ -33,7 +32,7 @@ class Camera:
 
     def run(self):
         while True:
-            time.sleep(0.1)
+            time.sleep(0.5)
             if not self.data_ready:
                 # grab the frame from the threaded video stream and resize it
                 # to have a maximum width of 400 pixels
@@ -57,7 +56,6 @@ class Camera:
                 print(average_brightness)
 
                 if average_brightness < 100:
-                    self.play_sound()
                     time.sleep(2.0)
                     # Wait on this thread for the object detection to finish
                     self.detect_object_easy()
@@ -66,15 +64,11 @@ class Camera:
         self.stream.stop()
         print("Camera stopping")
 
-    def play_sound(self, audio_to_play="ping", pan_value=0):
-        play(AudioSegment.from_mp3("python-sound-lib/audioFiles/" + audio_to_play + ".mp3").pan(
-            pan_value))
-
     def load_model(self):
         # load our serialized model from disk
         print("[INFO] loading model...")
-        self.net = cv2.dnn.readNetFromCaffe('MobileNetSSD_deploy.prototxt.txt',
-                                            "MobileNetSSD_deploy.caffemodel")
+        self.net = cv2.dnn.readNetFromCaffe('./camera/MobileNetSSD_deploy.prototxt.txt',
+                                            './camera/MobileNetSSD_deploy.caffemodel')
 
     # Object for the outside world
     def detect_object_easy(self):
@@ -104,6 +98,7 @@ class Camera:
 
         default_confidence = 0.4
 
+        buff = []
         # loop over the detections
         for i in np.arange(0, detections.shape[2]):
             # extract the confidence (i.e., probability) associated with
@@ -126,6 +121,6 @@ class Camera:
                 pan_value = (center / 200) * -1 if center < 200 else ((center - 200) / 200)
                 print(pan_value)
 
-                return classes[idx], pan_value
-
-        return 'geen_object', 0
+                buff.append((classes[idx], pan_value))
+        
+        return buff if len(buff) > 0 else [('geen_object', 0)]

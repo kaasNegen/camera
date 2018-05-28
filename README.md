@@ -3,10 +3,8 @@
 ## How to run:
 `python main.py`
 
+Use the camera.py class if you want to reuse this code.
 
-## TODO:
-- Give the current location of the 
-- Add new objects to Model
 
 ## Extra
 

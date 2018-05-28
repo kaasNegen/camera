@@ -3,6 +3,9 @@
 from gtts import gTTS
 import os
 
+tts = gTTS(text='Geen object herkend', lang='nl')
+tts.save('geen_object.mp3')
+
 objects =  ["achtergrond", "vliegtuig", "fiets", "vogel", "boot",
 	"fles", "bus", "auto", "kat", "stoel", "koe", "eettafel",
 	"hond", "paard", "motorfiets", "persoon", "plant", "schaap",
